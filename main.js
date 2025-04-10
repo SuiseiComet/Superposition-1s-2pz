@@ -66,9 +66,8 @@ function init(){
 
     camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR)
     scene.add(camera);
-    camera.position.set(0,5,7);
+    camera.position.set(0,3,10);
     camera.lookAt(scene.position);
-
     
 
     // RENDERER
@@ -165,15 +164,15 @@ function init(){
       const distance = Math.sqrt(x*x + y*y + z*z)
       
       isActive[i] = Math.random() > 0.5 ? 1.0 : 0.0;
-      theta[i] = Math.atan2(y, x);
       distance_from_origin_setup[i] = distance;
+      theta[i] = Math.atan2(Math.sqrt(x*x + z*z) , y);
       positions.push(x, y, z);
 
       //wavefunction_1s_at_point[i] = Math.E**(-distance);
       //wavefunction_2pz_at_point[i] = Math.cos(theta[i])*distance*Math.E**(-distance/2);
 
       wavefunction_1s_at_point[i] = Math.E**(-distance);
-      wavefunction_2pz_at_point[i] = 2.5*Math.sqrt(1/32)*distance*Math.E**(-distance/2)*Math.cos(theta[i]);
+      wavefunction_2pz_at_point[i] = 0.6*distance*Math.E**(-distance/2)*Math.cos(theta[i]);
     }
   
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
