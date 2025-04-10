@@ -66,7 +66,7 @@ function init(){
 
     camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR)
     scene.add(camera);
-    camera.position.set(0,3,10);
+    camera.position.set(0,3,13);
     camera.lookAt(scene.position);
     
 
@@ -95,8 +95,8 @@ function init(){
     const simulationFolder = gui.addFolder('Simulation Settings')
     simulationFolder.add(simulation, 'threshold', 0, 1).step(0.01).name('Probability Threshold')
     simulationFolder.add(simulation, 'speed', 0, 1).step(0.01).name('Animation Speed')
-    sim_n_prop_cont = simulationFolder.add(simulation, 'n_proportion', 0, 1).step(0.01).name('n proportion')
-    sim_m_prop_cont = simulationFolder.add(simulation, 'm_proportion', 0, 1).step(0.01).name('m proportion')
+    sim_n_prop_cont = simulationFolder.add(simulation, 'n_proportion', 0, 1).step(0.01).name('1s proportion')
+    sim_m_prop_cont = simulationFolder.add(simulation, 'm_proportion', 0, 1).step(0.01).name('2pz proportion')
     
     const settingsFolder = gui.addFolder('Settings')
     settingsFolder.add(settings, 'enable_axis', false,true).name('Enable XYZ Axis')
@@ -106,7 +106,7 @@ function init(){
         simulation.speed = 5;
         settings.enable_axis = false;
         settings.enable_grid = true;
-        camera.position.set(0,50,70);
+        camera.position.set(0,3,15);
         camera.lookAt(scene.position);
         gui.updateDisplay()
     }};
