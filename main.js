@@ -66,7 +66,7 @@ function init(){
 
     camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR)
     scene.add(camera);
-    camera.position.set(0,50,70);
+    camera.position.set(0,5,7);
     camera.lookAt(scene.position);
 
     
@@ -94,7 +94,7 @@ function init(){
 
     
     const simulationFolder = gui.addFolder('Simulation Settings')
-    simulationFolder.add(simulation, 'threshold', 0, 10).step(0.01).name('Probability Threshold')
+    simulationFolder.add(simulation, 'threshold', 0, 1).step(0.01).name('Probability Threshold')
     simulationFolder.add(simulation, 'speed', 0, 1).step(0.01).name('Animation Speed')
     sim_n_prop_cont = simulationFolder.add(simulation, 'n_proportion', 0, 1).step(0.01).name('n proportion')
     sim_m_prop_cont = simulationFolder.add(simulation, 'm_proportion', 0, 1).step(0.01).name('m proportion')
@@ -159,9 +159,9 @@ function init(){
     const geometry = new THREE.BufferGeometry();
     const isActive = new Float32Array(NUMPOINTS); // 1 = visible, 0 = hidden
     for (let i = 0; i < NUMPOINTS; i++) {
-      const x = (Math.random() - 0.5) * 15;
-      const y = (Math.random() - 0.5) * 15;
-      const z = (Math.random() - 0.5) * 15;
+      const x = (Math.random() - 0.5) * 20;
+      const y = (Math.random() - 0.5) * 20;
+      const z = (Math.random() - 0.5) * 20;
       const distance = Math.sqrt(x*x + y*y + z*z)
       
       isActive[i] = Math.random() > 0.5 ? 1.0 : 0.0;
@@ -173,7 +173,7 @@ function init(){
       //wavefunction_2pz_at_point[i] = Math.cos(theta[i])*distance*Math.E**(-distance/2);
 
       wavefunction_1s_at_point[i] = Math.E**(-distance);
-      wavefunction_2pz_at_point[i] = Math.sqrt(1/32/Math.PI)**Math.cos(theta[i])*distance*Math.E**(-distance/2);
+      wavefunction_2pz_at_point[i] = 2.5*Math.sqrt(1/32)*distance*Math.E**(-distance/2)*Math.cos(theta[i]);
     }
   
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
@@ -281,7 +281,7 @@ function update()
         if (simulation.n_proportion * wavefunction_1s_at_point.array[i] ** 2 + 
             simulation.m_proportion * wavefunction_2pz_at_point.array[i] ** 2 + 
             simulation.n_proportion * simulation.m_proportion *
-            wavefunction_1s_at_point.array[i] * wavefunction_2pz_at_point.array[i] * Math.cos(frame_count) > simulation.threshold/100){
+            wavefunction_1s_at_point.array[i] * wavefunction_2pz_at_point.array[i] * Math.cos(frame_count) > simulation.threshold/10){
             is_active.array[i] = 1
         }
         else{
