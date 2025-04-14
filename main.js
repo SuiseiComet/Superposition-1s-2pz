@@ -39,7 +39,6 @@ const settings = {
     rotation_matrix: new THREE.Euler(0,0,0),
     distance_between_atoms: 30,
 }
-//'rgb(0, 60, 255)'
 
 window.addEventListener('resize', function(event) {
     var SCREEN_WIDTH = window.innerWidth;
@@ -66,7 +65,7 @@ function init(){
 
     camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR)
     scene.add(camera);
-    camera.position.set(0,3,13);
+    camera.position.set(6,3,6);
     camera.lookAt(scene.position);
     
 
@@ -93,7 +92,7 @@ function init(){
 
     
     const simulationFolder = gui.addFolder('Simulation Settings')
-    simulationFolder.add(simulation, 'threshold', 0, 1).step(0.01).name('Probability Threshold')
+    simulationFolder.add(simulation, 'threshold', 0.4, 0.95).step(0.01).name('Probability Threshold')
     simulationFolder.add(simulation, 'speed', 0, 1).step(0.01).name('Animation Speed')
     sim_n_prop_cont = simulationFolder.add(simulation, 'n_proportion', 0, 1).step(0.01).name('1s proportion')
     sim_m_prop_cont = simulationFolder.add(simulation, 'm_proportion', 0, 1).step(0.01).name('2pz proportion')
@@ -124,7 +123,7 @@ function init(){
     scene.add(xzgrid);
 
     // Create materials for each axis
-    const axis_radius = 0.1;
+    const axis_radius = 0.05;
     const axis_length = 10000;
 
     const xAxisMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Red for X
